@@ -61,3 +61,21 @@ class Snake:
                 or self.head.ycor() == -300 \
                 or self.head.ycor() == 300:
             return True
+
+    def hit_taiL(self):
+        """ I created this myself w/o looking at lesson. Go through the rest of the course and see how they do it."""
+        for i in range(1, len(self.segments) - 1):
+            if self.head.distance(self.segments[i]) < 5:
+                return True
+
+    def generate_tail(self):
+        """ I created this myself w/o looking at lesson. Go through the rest of the course and see how they do it."""
+        seg = Turtle()
+        seg.shape("square")
+        seg.color("white", "white")
+        seg.penup()
+        new_x = self.segments[-1].xcor()
+        new_y = self.segments[-1].ycor()
+        seg.goto(new_x, new_y)
+        self.segments.append(seg)
+        self.segments[-1].goto(new_x, new_y)
