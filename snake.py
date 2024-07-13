@@ -20,18 +20,23 @@ class Snake:
         self.generate()
         self.head = self.segments[0]
 
+    def create_segment(self):
+        """ This can actually be outside the class, but for purposes of contextualisation, I'm keeping this in """
+        segment = Turtle()
+        segment.shape("square")
+        segment.color("white", "white")
+        segment.penup()
+        return segment
+
     def generate(self):
         """Starting position in this code"""
         x = 0
         y = 0
-        for i in range(3):
-            seg = Turtle()
-            seg.shape("square")
-            seg.color("white", "white")
-            seg.penup()
-            seg.goto(x, y)
-            x -= 20
-            self.segments.append(seg)
+        for i in range(3):  # Chose range so that you can easily adjust the length of snake
+            segment = self.create_segment()
+            segment.goto(x, y)
+            x -= 20  # x-variable allows you to keep making starting segments, without a fixed list [(0,0), (-20,0)...]
+            self.segments.append(segment)
 
     def move(self):
         for i in range(len(self.segments) - 1, 0, -1):
@@ -58,26 +63,18 @@ class Snake:
             self.head.setheading(RIGHT)
 
     def edge_of_screen(self):
-        if self.head.xcor() == -EDGE \
-                or self.head.xcor() == EDGE \
-                or self.head.ycor() == -EDGE \
-                or self.head.ycor() == EDGE:
-            return True
+        return abs(self.head.xcor()) == EDGE or abs(self.head.ycor()) == EDGE
 
     def hit_tail(self):
         """ I created this myself w/o looking at lesson. Go through the rest of the course and see how they do it."""
-        for i in range(1, len(self.segments) - 1):
-            if self.head.distance(self.segments[i]) < 5:
+        for segment in self.segments[1:]: # Excludes 0 because that's the snake head
+            if self.head.distance(segment) < 5:
                 return True
 
     def generate_tail(self):
-        """ I created this myself w/o looking at lesson. Go through the rest of the course and see how they do it."""
-        seg = Turtle()
-        seg.shape("square")
-        seg.color("white", "white")
-        seg.penup()
+        """Generate a new segment and append it to the end of the snake."""
         new_x = self.segments[-1].xcor()
         new_y = self.segments[-1].ycor()
-        seg.goto(new_x, new_y)
-        self.segments.append(seg)
-        self.segments[-1].goto(new_x, new_y)
+        new_segment = self.create_segment()
+        new_segment.goto(new_x, new_y)
+        self.segments.append(new_segment)

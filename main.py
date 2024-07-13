@@ -24,10 +24,12 @@ while game_is_on:
     screen.update()
     time.sleep(0.1)
     snake.move()
+    # Updates the screen and scoreboard when the snake eats the food
     if snake.head.distance(food) < 15:
         food.refresh()
         snake.generate_tail()
         scoreboard.update_score()
+    # Detect collision with the edge of the screen or the tail
     if snake.edge_of_screen() or snake.hit_tail():
         game_is_on = False
         scoreboard.game_over()
