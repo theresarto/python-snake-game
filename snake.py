@@ -1,10 +1,13 @@
 from turtle import Turtle
 
-
 # STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 # """ We don't actually need this because of our goto line """
 
 MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 
 class Snake:
@@ -13,6 +16,7 @@ class Snake:
     def __init__(self):
         self.segments = []
         self.generate()
+        self.head = self.segments[0]
 
     def generate(self):
         """Starting position in this code"""
@@ -32,7 +36,28 @@ class Snake:
             new_x = self.segments[i - 1].xcor()
             new_y = self.segments[i - 1].ycor()
             self.segments[i].goto(new_x, new_y)
-        # Change this to an event listener afterwards to the snake changes direction
-        # Change the loop structure so that after event listener,
-        # the first segment keeps leading
+
         self.segments[0].forward(MOVE_DISTANCE)
+
+    def up(self):
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
+
+    def down(self):
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
+
+    def left(self):
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
+
+    def right(self):
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)
+
+    def edge_of_screen(self):
+        if self.head.xcor() == -300 \
+                or self.head.xcor() == 300 \
+                or self.head.ycor() == -300 \
+                or self.head.ycor() == 300:
+            return True
