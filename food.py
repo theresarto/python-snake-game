@@ -1,6 +1,7 @@
 from turtle import Turtle
 import random
 
+EDGE_MARGIN = 280
 
 class Food(Turtle):
 
@@ -15,6 +16,6 @@ class Food(Turtle):
 
     def refresh(self):
         self.penup()
-        random_x = random.randint(-280, 280)
-        random_y = random.randint(-280, 280)
+        random_x = random.randint(-EDGE_MARGIN, EDGE_MARGIN)
+        random_y = random.randint(-EDGE_MARGIN, EDGE_MARGIN)
         self.goto(random_x, random_y)

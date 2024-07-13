@@ -9,6 +9,8 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+EDGE = 300
+
 
 class Snake:
     """Creates the snake"""
@@ -56,13 +58,13 @@ class Snake:
             self.head.setheading(RIGHT)
 
     def edge_of_screen(self):
-        if self.head.xcor() == -300 \
-                or self.head.xcor() == 300 \
-                or self.head.ycor() == -300 \
-                or self.head.ycor() == 300:
+        if self.head.xcor() == -EDGE \
+                or self.head.xcor() == EDGE \
+                or self.head.ycor() == -EDGE \
+                or self.head.ycor() == EDGE:
             return True
 
-    def hit_taiL(self):
+    def hit_tail(self):
         """ I created this myself w/o looking at lesson. Go through the rest of the course and see how they do it."""
         for i in range(1, len(self.segments) - 1):
             if self.head.distance(self.segments[i]) < 5:

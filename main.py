@@ -28,7 +28,8 @@ while game_is_on:
         food.refresh()
         snake.generate_tail()
         scoreboard.update_score()
-    if snake.edge_of_screen() or snake.hit_taiL():
+    if snake.edge_of_screen() or snake.hit_tail():
         game_is_on = False
+        scoreboard.game_over()
 
 screen.exitonclick()
