@@ -31,7 +31,14 @@ while game_is_on:
         scoreboard.update_score()
     # Detect collision with the edge of the screen or the tail
     if snake.edge_of_screen() or snake.hit_tail():
-        game_is_on = False
-        scoreboard.game_over()
+        # scoreboard.press_space_to_start()
+        scoreboard.reset_highscore()
+        screen.onkey(fun=snake.reset, key="space")
+        if snake.head.distance(food) < 15:
+            food.refresh()
+            snake.generate_tail()
+            scoreboard.update_score()
+
+        # scoreboard.game_over()
 
 screen.exitonclick()

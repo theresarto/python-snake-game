@@ -15,16 +15,32 @@ class Scoreboard(Turtle):
         self.goto(0, 260)
         self.color("white")
         self.speed("fastest")
+        self.current_high_score = 0
         self.update_scoreboard()
 
     def update_scoreboard(self):
-        self.write(f"Score: {self.score}", align=ALIGN, font=FONT)
+        self.clear()
+        self.goto(0, 260)
+        self.write(f"Score: {self.score} | High Score: {self.current_high_score}", align=ALIGN, font=FONT)
 
     def update_score(self):
-        self.clear()
         self.score += 1
+        if self.score >= self.current_high_score:
+            self.current_high_score = self.score
         self.update_scoreboard()
 
-    def game_over(self):
-        self.goto(0,0)
-        self.write("GAME OVER.", align=ALIGN, font= ("Monospace", 24, "normal"))
+    # def game_over(self):
+    #     self.goto(0, 0)
+    #     self.write("GAME OVER.", align=ALIGN, font=("Monospace", 24, "normal"))
+
+    def reset_highscore(self):
+        self.write("Press [SPACE] to start.", align=ALIGN, font=("Monospace", 24, "normal"))
+        if self.score >= self.current_high_score:
+            self.current_high_score = self.score
+        self.score = 0
+        self.update_scoreboard()
+
+    def press_space_to_start(self):
+        self.goto(0, 0)
+        self.write("Press [SPACE] to start.", align=ALIGN, font=("Monospace", 24, "normal"))
+
